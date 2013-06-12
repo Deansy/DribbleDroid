@@ -52,7 +52,7 @@ public class MainActivity extends Activity {
         CardUI ui = (CardUI)findViewById(R.id.cardview);
 
         for (final Shot i: shots) {
-            ImageCard tempCard = new ImageCard(i.getTitle(), i.getImageUrl());
+            ImageCard tempCard = new ImageCard(i);
 
             tempCard.setOnClickListener(new View.OnClickListener() {
                 @Override

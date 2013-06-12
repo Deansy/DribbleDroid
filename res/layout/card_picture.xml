@@ -35,14 +35,13 @@
             android:orientation="vertical"
             android:padding="8dp" >
 
-        <com.loopj.android.image.SmartImageView
+        <ImageView
                 android:id="@+id/imageView1"
                 android:layout_width="match_parent"
                 android:layout_height="255dp"
                 android:adjustViewBounds="true"
                 android:baselineAlignBottom="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/url1" />
+                android:scaleType="centerCrop"/>
     </LinearLayout>
 
 </LinearLayout>

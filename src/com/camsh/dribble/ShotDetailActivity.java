@@ -1,15 +1,9 @@
 package com.camsh.dribble;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 import com.camsh.dribble.Model.Shot;
-import com.fima.cardsui.objects.CardStack;
 import com.fima.cardsui.views.CardUI;
-import com.loopj.android.image.SmartImageView;
 
 
 public class ShotDetailActivity extends Activity {
@@ -26,13 +20,13 @@ public class ShotDetailActivity extends Activity {
         }
         appState = (DribbleDroid)this.getApplication();
 
-        Shot theShot = appState.api.getShot(shotID,true);
+        Shot theShot = appState.api.getShot(shotID, false);
 
         // init CardView
         CardUI mCardView = (CardUI) findViewById(R.id.cardview);
         mCardView.setSwipeable(false);
 
-        mCardView.addCard(new ImageCard(theShot.getTitle(),null));
+        mCardView.addCard(new ImageCard(theShot));
 
         // draw cards
         mCardView.refresh();
