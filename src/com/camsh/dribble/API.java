@@ -1,63 +1,94 @@
 package com.camsh.dribble;
 
 import java.io.*;
+import java.util.ArrayList;
 
+import com.camsh.dribble.Model.Player;
+import com.camsh.dribble.Model.Shot;
 import org.apache.http.*;
 import org.apache.http.client.*;
 import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.os.AsyncTask;
-import android.util.Log;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 
 public class API {
-    static void Test() {
-    	try {
-	        HttpClient httpclient = new DefaultHttpClient();
-	        HttpGet get = new HttpGet("http://api.dribbble.com/shots/936548");
 
-	        HttpResponse response = httpclient.execute(get);
+    public ArrayList<Shot> getPopularList() {
+        ArrayList<Shot> popularList = new ArrayList<Shot>();
+        try {
+            JSONObject object = new getJSON().execute("http://api.dribbble.com/shots/popular?per_page=30").get();
+            JSONArray shotArray = object.getJSONArray("shots");
 
-	        HttpEntity entity = response.getEntity();
-	        BufferedReader in = new BufferedReader(new InputStreamReader(entity.getContent()));
-	        String returnedJSONString = in.readLine();
-	        in.close();
+            for (int i = 0; i < shotArray.length(); i++) {
+                JSONObject tempObj = shotArray.getJSONObject(i);
+                popularList.add(new Shot(tempObj));
+            }
 
-            //if (Constants.DEV_MODE) Log.d(Constants.TAG, "GetMe: " + returnedJSONString);
-	        Log.d("TAG", returnedJSONString);
-    	}
-    	catch (Exception e) {
-			e.printStackTrace();
-		}
-    }
-    
-    public static class getSubreddit extends AsyncTask<String, Void, String> {
-
-        protected String doInBackground(String... subreddit) {
-        	try {
-    	        HttpClient httpclient = new DefaultHttpClient();
-    	        HttpGet get = new HttpGet("http://api.dribbble.com/shots/936548");
-
-    	        HttpResponse response = httpclient.execute(get);
-
-    	        HttpEntity entity = response.getEntity();
-    	        BufferedReader in = new BufferedReader(new InputStreamReader(entity.getContent()));
-    	        String returnedJSONString = in.readLine();
-    	        in.close();
-
-                //if (Constants.DEV_MODE) Log.d(Constants.TAG, "GetMe: " + returnedJSONString);
-    	        Log.d("TAG", returnedJSONString);
-    	        return returnedJSONString;
-        	}
-        	catch (Exception e) {
-    			e.printStackTrace();
-    		}
-			return null;
+            return popularList;
         }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-        protected void onPostExecute(String result) {
-            
+    public Shot getShot(int shotID, boolean withComments) {
+        try {
+            JSONObject object = new getJSON().execute("http://api.dribbble.com/shots/" + shotID).get();
 
+            if (withComments) {
+                JSONObject commentObject = new getJSON().execute("http://api.dribbble.com/shots/" + shotID + "/comments").get();
+                JSONArray commentArray = commentObject.getJSONArray("comments");
+
+                return new Shot(object, commentArray);
+            }
+            else {
+                return new Shot(object);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        // Return blank shot
+        return new Shot();
+    }
+
+    public Player getPlayer(String playerName) {
+        try {
+            JSONObject object = new getJSON().execute("http://api.dribble.com/players/" + playerName).get();
+        }
+        catch (Exception e) {
+
+        }
+        return null;
+    }
+
+
+    private static class getJSON extends AsyncTask<String, Void, JSONObject> {
+
+        protected JSONObject doInBackground(String... url) {
+            try {
+                HttpClient httpclient = new DefaultHttpClient();
+                HttpGet get = new HttpGet(url[0]);
+
+                HttpResponse response = httpclient.execute(get);
+
+                HttpEntity entity = response.getEntity();
+                BufferedReader in = new BufferedReader(new InputStreamReader(entity.getContent()));
+                String returnedJSONString = in.readLine();
+                in.close();
+
+                JSONObject object = new JSONObject(returnedJSONString);
+                return object;
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
         }
     }
 }
