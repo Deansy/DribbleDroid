@@ -2,8 +2,11 @@ package com.camsh.dribble;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import com.camsh.dribble.Model.Shot;
-import com.fima.cardsui.views.CardUI;
+import com.squareup.picasso.Picasso;
 
 
 public class ShotDetailActivity extends Activity {
@@ -12,7 +15,7 @@ public class ShotDetailActivity extends Activity {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_shotdetail);
+        setContentView(R.layout.image_card);
 
         Bundle extras = getIntent().getExtras();
         if (extras !=null) {
@@ -22,14 +25,13 @@ public class ShotDetailActivity extends Activity {
 
         Shot theShot = appState.api.getShot(shotID, false);
 
-        // init CardView
-        CardUI mCardView = (CardUI) findViewById(R.id.cardview);
-        mCardView.setSwipeable(false);
+        ImageView iv = (ImageView)findViewById(R.id.imageView1);
+        Picasso.with(getBaseContext())
+                .load(theShot.getImageUrl())
+                .placeholder(R.drawable.url1)
+                .into(iv);
 
-        mCardView.addCard(new ImageCard(theShot));
-
-        // draw cards
-        mCardView.refresh();
+        ((TextView) findViewById(R.id.title)).setText(theShot.getTitle());
     }
 
 

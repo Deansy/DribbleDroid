@@ -13,7 +13,8 @@
             android:allowBackup="true"
             android:icon="@drawable/ic_launcher"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme" android:name=".DribbleDroid">
+            android:theme= "@android:style/Theme.Holo.Light"
+            android:name=".DribbleDroid">
         <activity
                 android:name="com.camsh.dribble.MainActivity"
                 android:label="@string/app_name" >
@@ -25,7 +26,6 @@
         </activity>
 
         <activity android:name="com.camsh.dribble.ShotDetailActivity" />
-        <activity android:name="com.camsh.dribble.TestActivity" />
     </application>
 
 </manifest>

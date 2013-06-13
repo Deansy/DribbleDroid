@@ -29,6 +29,10 @@ public class ImageAdapter extends BaseAdapter {
         return mShots.size();
     }
 
+    public ArrayList<Shot> getShots() {
+        return mShots;
+    }
+
     public Object getItem(int position) {
         return null;
     }
