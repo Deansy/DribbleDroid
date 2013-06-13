@@ -24,7 +24,7 @@ public class ShotDetailActivity extends Activity {
         }
         appState = (DribbleDroid)this.getApplication();
 
-        Shot theShot = appState.getApi().getShot(shotID, false);
+        Shot theShot = appState.getApi().getShot(shotID, false, this);
 
         ImageView iv = (ImageView)findViewById(R.id.imageView1);
 

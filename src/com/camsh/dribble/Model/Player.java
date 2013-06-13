@@ -1,5 +1,7 @@
 package com.camsh.dribble.Model;
 
+import com.google.gson.JsonObject;
+
 import org.json.JSONObject;
 
 import java.util.Date;
@@ -25,26 +27,26 @@ public class Player {
     int rebounds_recieved_count;
     //Date created_at;
 
-    public Player(JSONObject object) {
+    public Player(JsonObject object) {
         try {
-            name = object.getString("name");
-            website_url = object.getString("website_url");
-            twitter_screen_name = object.getString("twitter_screen_name");
-            username = object.getString("username");
-            location = object.getString("location");
-            url = object.getString("url");
-            avatar_url = object.getString("avatar_url");
-            likes_count = object.getInt("likes_count");
-            comments_count = object.getInt("comments_count");
-            followers_count = object.getInt("followers_count");
-            id = object.getInt("id");
-            shots_count = object.getInt("shots_count");
-            likes_recieved_count = object.getInt("likes_recieved_count");
-            drafted_by_player_id = object.getInt("drafted_by_player_id");
-            draftees_count = object.getInt("draftees_count");
-            following_count = object.getInt("following_count");
-            rebounds_count = object.getInt("rebounds_count");
-            rebounds_recieved_count = object.getInt("rebounds_recieved_count");
+            name = object.get("name").getAsString();
+            website_url = object.get("website_url").getAsString();
+            twitter_screen_name = object.get("twitter_screen_name").getAsString();
+            username = object.get("username").getAsString();
+            location = object.get("location").getAsString();
+            url = object.get("url").getAsString();
+            avatar_url = object.get("avatar_url").getAsString();
+            likes_count = object.get("likes_count").getAsInt();
+            comments_count = object.get("comments_count").getAsInt();
+            followers_count = object.get("followers_count").getAsInt();
+            id = object.get("id").getAsInt();
+            shots_count = object.get("shots_count").getAsInt();
+            likes_recieved_count = object.get("likes_recieved_count").getAsInt();
+            drafted_by_player_id = object.get("drafted_by_player_id").getAsInt();
+            draftees_count = object.get("draftees_count").getAsInt();
+            following_count = object.get("following_count").getAsInt();
+            rebounds_count = object.get("rebounds_count").getAsInt();
+            rebounds_recieved_count = object.get("rebounds_recieved_count").getAsInt();
         }
         catch (Exception e) {
             e.printStackTrace();

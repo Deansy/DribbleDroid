@@ -1,5 +1,6 @@
 package com.camsh.dribble.Model;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
@@ -31,30 +32,7 @@ public class Shot {
     public Shot() {
 
     }
-    public Shot(JSONObject object) {
-        // If an exemption is thrown then it will not parse any elements after it.
-        // NEED TO FIX ASAP
-        try {
 
-            image_url = object.getString("image_url");
-            short_url = object.getString("short_url");
-            image_teaser_url = object.getString("image_teaser_url");
-            views_count = object.getInt("views_count");
-            comments_count = object.getInt("comments_count");
-            likes_count = object.getInt("likes_count");
-            id = object.getInt("id");
-            width = object.getInt("width");
-            height = object.getInt("height");
-            title = object.getString("title");
-            url = object.getString("url");
-            player = new Player(object.getJSONObject("player"));
-            rebound_source_url = object.getString("rebound_source_url");
-            rebounds_count = object.getInt("rebounds_count");
-        }
-        catch (Exception e) {
-
-        }
-    }
     public Shot(JsonObject object) {
         // If an exemption is thrown then it will not parse any elements after it.
         // NEED TO FIX ASAP
@@ -70,7 +48,7 @@ public class Shot {
             height = object.get("height").getAsInt();
             title = object.get("title").getAsString();
             url = object.get("url").getAsString();
-            //player = new Player(object.getJSONObject("player"));
+            player = new Player(object.get("player").getAsJsonObject());
             rebound_source_url = object.get("rebound_source_url").getAsString();
             rebounds_count = object.get("rebounds_count").getAsInt();
         }
@@ -78,30 +56,30 @@ public class Shot {
             e.printStackTrace();
         }
     }
-    public Shot(JSONObject object, JSONArray commentArray) {
+    public Shot(JsonObject object, JsonArray commentArray) {
         try {
 
             comments = new ArrayList<Comment>();
 
-            for (int i = 0; i < commentArray.length(); i++) {
-                comments.add(new Comment(commentArray.getJSONObject(i)));
+            for (int i = 0; i < commentArray.size(); i++) {
+                comments.add(new Comment(commentArray.get(i).getAsJsonObject()));
             }
 
-            image_teaser_url = object.getString("image_teaser_url");
-            image_url = object.getString("image_url");
-            short_url = object.getString("short_url");
-            views_count = object.getInt("views_count");
-            comments_count = object.getInt("comments_count");
-            likes_count = object.getInt("likes_count");
-            id = object.getInt("id");
-            width = object.getInt("width");
-            height = object.getInt("height");
-            title = object.getString("title");
-            player = new Player(object.getJSONObject("player"));
-            rebound_source_url = object.getString("rebound_source_url");
-            url = object.getString("url");
+            image_teaser_url = object.get("image_teaser_url").getAsString();
+            image_url = object.get("image_url").getAsString();
+            short_url = object.get("short_url").getAsString();
+            views_count = object.get("views_count").getAsInt();
+            comments_count = object.get("comments_count").getAsInt();
+            likes_count = object.get("likes_count").getAsInt();
+            id = object.get("id").getAsInt();
+            width = object.get("width").getAsInt();
+            height = object.get("height").getAsInt();
+            title = object.get("title").getAsString();
+            player = new Player(object.get("player").getAsJsonObject());
+            rebound_source_url = object.get("rebound_source_url").getAsString();
+            url = object.get("url").getAsString();
 
-            rebounds_count = object.getInt("rebounds_count");
+            rebounds_count = object.get("rebounds_count").getAsInt();
 
 
         }

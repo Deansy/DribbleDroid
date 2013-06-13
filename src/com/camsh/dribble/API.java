@@ -9,6 +9,7 @@ import com.camsh.dribble.Model.Shot;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -48,14 +49,16 @@ public class API {
         return null;
     }
 
-    public Shot getShot(int shotID, boolean withComments) {
+    public Shot getShot(int shotID, boolean withComments, Context context) {
         try {
-            JSONObject object = new getJSON().execute("http://api.dribbble.com/shots/" + shotID).get();
+
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/" + shotID).asJsonObject().get();
 
             if (withComments) {
                 //TODO: Change to use gson parsing
-                JSONObject commentObject = new getJSON().execute("http://api.dribbble.com/shots/" + shotID + "/comments").get();
-                JSONArray commentArray = commentObject.getJSONArray("comments");
+
+                JsonObject commentObject = Ion.with(context, "http://api.dribbble.com/shots/" + shotID + "/comments").asJsonObject().get();
+                JsonArray commentArray = commentObject.get("comments").getAsJsonArray();
 
                 return new Shot(object, commentArray);
             }
@@ -70,9 +73,9 @@ public class API {
         return new Shot();
     }
 
-    public Player getPlayer(String playerName) {
+    public Player getPlayer(String playerName, Context context) {
         try {
-            JSONObject object = new getJSON().execute("http://api.dribble.com/players/" + playerName).get();
+            //JsonObject object = Ion.with(context, "http://api.dribble.com/players/" + playerName).asJsonObject().get();
         }
         catch (Exception e) {
 
@@ -81,9 +84,9 @@ public class API {
     }
 
 
-    private static class getJSON extends AsyncTask<String, Void, JSONObject> {
+    private static class getJSON extends AsyncTask<String, Void, JsonObject> {
 
-        protected JSONObject doInBackground(String... url) {
+        protected JsonObject doInBackground(String... url) {
             try {
                 HttpClient httpclient = new DefaultHttpClient();
                 HttpGet get = new HttpGet(url[0]);
@@ -95,8 +98,8 @@ public class API {
                 String returnedJSONString = in.readLine();
                 in.close();
 
-                JSONObject object = new JSONObject(returnedJSONString);
-                return object;
+                JsonObject o = new JsonParser().parse(returnedJSONString).getAsJsonObject();
+                return o;
             }
             catch (Exception e) {
                 e.printStackTrace();

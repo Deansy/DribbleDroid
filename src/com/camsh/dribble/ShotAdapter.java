@@ -17,11 +17,11 @@ import java.util.ArrayList;
 /**
  * Created by Cameron on 13/06/13.
  */
-public class ImageAdapter extends BaseAdapter {
+public class ShotAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Shot> mShots;
 
-    public ImageAdapter(Context c, ArrayList<Shot> shots) {
+    public ShotAdapter(Context c, ArrayList<Shot> shots) {
         mContext = c;
         mShots = shots;
     }
@@ -39,8 +39,8 @@ public class ImageAdapter extends BaseAdapter {
         return mShots;
     }
 
-    public Object getItem(int position) {
-        return null;
+    public Shot getItem(int position) {
+        return mShots.get(position);
     }
 
     public long getItemId(int position) {
@@ -71,12 +71,7 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         ImageView imageView = (ImageView)view.findViewById(R.id.imageView1);
-        Picasso.with(mContext).setDebugging(true);
 
-//        Picasso.with(mContext)
-//                .load(mShots.get(position).getImageUrl())
-//                .placeholder(R.drawable.url1)
-//                .into(imageView);
 
         Ion.with(imageView)
                 .placeholder(R.drawable.url2)
