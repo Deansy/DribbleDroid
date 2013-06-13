@@ -25,7 +25,7 @@
         </activity>
 
         <activity android:name="com.camsh.dribble.ShotDetailActivity" />
-
+        <activity android:name="com.camsh.dribble.TestActivity" />
     </application>
 
 </manifest>

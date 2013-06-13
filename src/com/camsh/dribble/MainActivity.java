@@ -57,7 +57,8 @@ public class MainActivity extends Activity {
             tempCard.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent tempIntent = new Intent(getBaseContext(), ShotDetailActivity.class);
+                    //Intent tempIntent = new Intent(getBaseContext(), ShotDetailActivity.class);
+                    Intent tempIntent = new Intent(getBaseContext(), TestActivity.class);
                     tempIntent.putExtra("shotID", i.getId());
                     startActivity(tempIntent);
                 }

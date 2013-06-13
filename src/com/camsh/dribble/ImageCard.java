@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.camsh.dribble.Model.Shot;
 import com.fima.cardsui.objects.Card;
-import com.loopj.android.image.SmartImageView;
+
 import com.squareup.picasso.Picasso;
 
 /**
