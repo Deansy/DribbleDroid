@@ -21,11 +21,10 @@ public class MainActivity extends Activity {
         appState = (DribbleDroid)this.getApplication();
 
 
-        ArrayList<Shot> shots = appState.api.getPopularList();
-
         ListView listview = (ListView) findViewById(R.id.listview);
-        final ImageAdapter imageAdapter = new ImageAdapter(this, shots);
+        final ImageAdapter imageAdapter = new ImageAdapter(this, appState.getApi().getPopularList(getBaseContext()));
         listview.setAdapter(imageAdapter);
+
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

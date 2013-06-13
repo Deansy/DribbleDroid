@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.camsh.dribble.Model.Shot;
+import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,7 +27,12 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public int getCount() {
-        return mShots.size();
+        if (mShots == null) {
+            return 0;
+        }
+        else {
+            return mShots.size();
+        }
     }
 
     public ArrayList<Shot> getShots() {
@@ -67,10 +73,17 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView = (ImageView)view.findViewById(R.id.imageView1);
         Picasso.with(mContext).setDebugging(true);
 
-        Picasso.with(mContext)
-                .load(mShots.get(position).getImageUrl())
-                .placeholder(R.drawable.url1)
-                .into(imageView);
+//        Picasso.with(mContext)
+//                .load(mShots.get(position).getImageUrl())
+//                .placeholder(R.drawable.url1)
+//                .into(imageView);
+
+        Ion.with(imageView)
+                .placeholder(R.drawable.url2)
+                .load(mShots.get(position).getImageUrl());
+
+
+
 
         ((TextView) view.findViewById(R.id.title)).setText(mShots.get(position).getTitle());
 

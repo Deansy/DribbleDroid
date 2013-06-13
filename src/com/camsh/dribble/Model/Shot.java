@@ -1,5 +1,8 @@
 package com.camsh.dribble.Model;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -50,6 +53,29 @@ public class Shot {
         }
         catch (Exception e) {
 
+        }
+    }
+    public Shot(JsonObject object) {
+        // If an exemption is thrown then it will not parse any elements after it.
+        // NEED TO FIX ASAP
+        try {
+            image_url = object.get("image_url").getAsString();
+            short_url = object.get("short_url").getAsString();
+            image_teaser_url = object.get("image_teaser_url").getAsString();
+            views_count = object.get("views_count").getAsInt();
+            comments_count = object.get("comments_count").getAsInt();
+            likes_count = object.get("likes_count").getAsInt();
+            id = object.get("id").getAsInt();
+            width = object.get("width").getAsInt();
+            height = object.get("height").getAsInt();
+            title = object.get("title").getAsString();
+            url = object.get("url").getAsString();
+            //player = new Player(object.getJSONObject("player"));
+            rebound_source_url = object.get("rebound_source_url").getAsString();
+            rebounds_count = object.get("rebounds_count").getAsInt();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
         }
     }
     public Shot(JSONObject object, JSONArray commentArray) {

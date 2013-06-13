@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.camsh.dribble.Model.Shot;
+import com.koushikdutta.ion.Ion;
 import com.squareup.picasso.Picasso;
 
 
@@ -18,18 +19,19 @@ public class ShotDetailActivity extends Activity {
         setContentView(R.layout.image_card);
 
         Bundle extras = getIntent().getExtras();
-        if (extras !=null) {
+        if (extras != null) {
             shotID = extras.getInt("shotID");
         }
         appState = (DribbleDroid)this.getApplication();
 
-        Shot theShot = appState.api.getShot(shotID, false);
+        Shot theShot = appState.getApi().getShot(shotID, false);
 
         ImageView iv = (ImageView)findViewById(R.id.imageView1);
-        Picasso.with(getBaseContext())
-                .load(theShot.getImageUrl())
-                .placeholder(R.drawable.url1)
-                .into(iv);
+
+        Ion.with(iv)
+                .placeholder(R.drawable.url2)
+                .load(theShot.getImageUrl());
+
 
         ((TextView) findViewById(R.id.title)).setText(theShot.getTitle());
     }

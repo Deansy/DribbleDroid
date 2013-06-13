@@ -13,6 +13,6 @@
         android:layout_height="wrap_content"
         android:listSelector="@android:color/transparent"
         android:divider="@android:color/transparent"
-        android:dividerHeight="20.0sp"/>
+        android:dividerHeight="15.0sp"/>
 
 </LinearLayout>
