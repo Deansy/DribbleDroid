@@ -7,16 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.camsh.dribble.Model.Shot;
 import com.koushikdutta.ion.Ion;
-import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 
-/**
- * Created by Cameron on 13/06/13.
- */
 public class ShotAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<Shot> mShots;
@@ -47,7 +41,6 @@ public class ShotAdapter extends BaseAdapter {
         return 0;
     }
 
-    // create a new ImageView for each item referenced by the Adapter
     public View getView(int position, View convertView, ViewGroup parent) {
 
         LayoutInflater inflater = (LayoutInflater) mContext
@@ -72,13 +65,9 @@ public class ShotAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView)view.findViewById(R.id.imageView1);
 
-
         Ion.with(imageView)
                 .placeholder(R.drawable.url2)
                 .load(mShots.get(position).getImageUrl());
-
-
-
 
         ((TextView) view.findViewById(R.id.title)).setText(mShots.get(position).getTitle());
 

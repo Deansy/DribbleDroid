@@ -2,7 +2,6 @@ package com.camsh.dribble;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.List;
 
 import com.camsh.dribble.Model.Player;
 import com.camsh.dribble.Model.Shot;
@@ -10,21 +9,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
-import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import org.apache.http.*;
 import org.apache.http.client.*;
 import org.apache.http.client.methods.*;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.content.Context;
 import android.os.AsyncTask;
-import android.util.Log;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 
 public class API {
@@ -55,8 +47,6 @@ public class API {
             JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/" + shotID).asJsonObject().get();
 
             if (withComments) {
-                //TODO: Change to use gson parsing
-
                 JsonObject commentObject = Ion.with(context, "http://api.dribbble.com/shots/" + shotID + "/comments").asJsonObject().get();
                 JsonArray commentArray = commentObject.get("comments").getAsJsonArray();
 

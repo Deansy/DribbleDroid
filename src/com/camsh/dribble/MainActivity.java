@@ -1,6 +1,8 @@
 package com.camsh.dribble;
 
-import android.content.Intent;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.app.Activity;
@@ -18,10 +20,21 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    ShotAdapter shotAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        appState = (DribbleDroid)this.getApplication();
+        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this));
+
+        FragmentManager fragmentManager = getFragmentManager();
+        ListFragment fragment = new ListFragment(shotAdapter);
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.fragment_container,fragment);
+        fragmentTransaction.commit();
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -47,7 +60,7 @@ public class MainActivity extends Activity {
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
 
-        appState = (DribbleDroid)this.getApplication();
+
 
         String[] temp = {"Popular List", "...", "Settings"};
         mPlanetTitles = temp;
@@ -59,20 +72,19 @@ public class MainActivity extends Activity {
                 R.layout.drawer_list_item, mPlanetTitles));
 
 
-        ListView listview = (ListView) findViewById(R.id.listview);
-        final ShotAdapter shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(getBaseContext()));
-        listview.setAdapter(shotAdapter);
 
 
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                Intent tempIntent = new Intent(getBaseContext(), ShotDetailActivity.class);
-                tempIntent.putExtra("shotID", shotAdapter.getShots().get(position).getId());
-                startActivity(tempIntent);
-            }
-        });
+    }
 
+    public void transitionToDetailFrag(int position) {
+        Fragment newFragment = new ShotDetailFragment(shotAdapter.getItem(position));
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+
+        transaction.replace(R.id.fragment_container, newFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
     }
 
     @Override
@@ -89,15 +101,32 @@ public class MainActivity extends Activity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Pass the event to ActionBarDrawerToggle, if it returns
-        // true, then it has handled the app icon touch event
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        // Handle your other action bar items...
+    public boolean onCreateOptionsMenu(Menu menu) {
+        //TODO: Replace refresh with icon
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main, menu);
 
-        return super.onOptionsItemSelected(item);
+        return true;
+
+    }
+
+
+        @Override
+        public boolean onOptionsItemSelected(MenuItem item) {
+            // Pass the event to ActionBarDrawerToggle, if it returns
+            // true, then it has handled the app icon touch event
+            if (mDrawerToggle.onOptionsItemSelected(item)) {
+                return true;
+            }
+            // Handle your other action bar items...
+
+            if (item.getTitle() == "Refresh") {
+                //TODO: Perform Refresh
+                // Create new fragment and transaction
+
+            }
+
+            return super.onOptionsItemSelected(item);
     }
 
 }

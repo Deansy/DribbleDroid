@@ -25,7 +25,6 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.camsh.dribble.ShotDetailActivity" />
     </application>
 
 </manifest>
