@@ -2,6 +2,7 @@ package com.camsh.dribble;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,10 +14,8 @@ import android.widget.ListView;
  */
 public class ListFragment extends Fragment {
 
-    private ShotAdapter mShotAdapter;
+    public ListFragment() {
 
-    ListFragment(ShotAdapter adapter) {
-        mShotAdapter = adapter;
     }
 
     private DribbleDroid appState;
@@ -25,7 +24,7 @@ public class ListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         appState = (DribbleDroid)getActivity().getApplication();
-
+        ShotAdapter mShotAdapter = ((MainActivity)getActivity()).shotAdapter;
         View view = inflater.inflate(R.layout.list_fragment, container, false);
         ListView listView = (ListView) view.findViewById(R.id.listview);
         listView.setAdapter(mShotAdapter);
@@ -35,7 +34,7 @@ public class ListFragment extends Fragment {
 //                Intent tempIntent = new Intent(getBaseContext(), ShotDetailActivity.class);
 //                tempIntent.putExtra("shotID", shotAdapter.getShots().get(position).getId());
 //                startActivity(tempIntent);
-                ((MainActivity)getActivity()).transitionToDetailFrag(position);
+                ((MainActivity) getActivity()).transitionToDetailFrag(position);
 
             }
         });

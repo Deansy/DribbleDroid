@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
         shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this));
 
         FragmentManager fragmentManager = getFragmentManager();
-        ListFragment fragment = new ListFragment(shotAdapter);
+        ListFragment fragment = new ListFragment();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container,fragment);
         fragmentTransaction.commit();
@@ -61,7 +61,6 @@ public class MainActivity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
 
 
-
         String[] temp = {"Popular List", "...", "Settings"};
         mPlanetTitles = temp;
 
@@ -71,10 +70,34 @@ public class MainActivity extends Activity {
         mDrawerList.setAdapter(new ArrayAdapter<String>(this,
                 R.layout.drawer_list_item, mPlanetTitles));
 
+        // Set the first item checked.
+        mDrawerList.setItemChecked(0, true);
 
 
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Fragment newFrag = null;
+                switch (i) {
+                    case 0:
+                        newFrag = new ListFragment();
+                        break;
+                    case 1:
+                        break;
+                }
+                if (newFrag != null) {
+                    getFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, newFrag)
+                            .commit();
+
+                }
+
+                mDrawerList.clearChoices();
 
 
+                mDrawerLayout.closeDrawers();
+            }
+        });
     }
 
     public void transitionToDetailFrag(int position) {
@@ -111,22 +134,22 @@ public class MainActivity extends Activity {
     }
 
 
-        @Override
-        public boolean onOptionsItemSelected(MenuItem item) {
-            // Pass the event to ActionBarDrawerToggle, if it returns
-            // true, then it has handled the app icon touch event
-            if (mDrawerToggle.onOptionsItemSelected(item)) {
-                return true;
-            }
-            // Handle your other action bar items...
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Pass the event to ActionBarDrawerToggle, if it returns
+        // true, then it has handled the app icon touch event
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+        // Handle your other action bar items...
 
-            if (item.getTitle() == "Refresh") {
-                //TODO: Perform Refresh
-                // Create new fragment and transaction
+        if (item.getTitle() == "Refresh") {
+            //TODO: Perform Refresh
+            // Create new fragment and transaction
 
-            }
+        }
 
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
 }
