@@ -78,29 +78,4 @@ public class API {
         }
         return null;
     }
-
-
-    private static class getJSON extends AsyncTask<String, Void, JsonObject> {
-
-        protected JsonObject doInBackground(String... url) {
-            try {
-                HttpClient httpclient = new DefaultHttpClient();
-                HttpGet get = new HttpGet(url[0]);
-
-                HttpResponse response = httpclient.execute(get);
-
-                HttpEntity entity = response.getEntity();
-                BufferedReader in = new BufferedReader(new InputStreamReader(entity.getContent()));
-                String returnedJSONString = in.readLine();
-                in.close();
-
-                JsonObject o = new JsonParser().parse(returnedJSONString).getAsJsonObject();
-                return o;
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
 }
