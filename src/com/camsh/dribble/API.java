@@ -14,7 +14,7 @@ import android.content.Context;
 
 public class API {
 
-    public ArrayList<Shot> getPopularList(Context context, int count) {
+    public ArrayList<Shot> getPopularList(Context context, int count, int page) {
         ArrayList<Shot> popularList = new ArrayList<Shot>();
         try {
             if (count> 30) {
@@ -23,7 +23,11 @@ public class API {
             if (count < 1) {
                 count = 1;
             }
-            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/popular?per_page=" + count).asJsonObject().get();
+
+            if (page < 1) {
+                page = 1;
+            }
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/popular?per_page=" + count + "&page=" + page).asJsonObject().get();
             JsonArray shotArray = object.get("shots").getAsJsonArray();
 
            for (int i = 0; i < shotArray.size(); i++) {
@@ -40,7 +44,7 @@ public class API {
         return null;
     }
 
-    public ArrayList<Shot> getEveryoneList(Context context, int count) {
+    public ArrayList<Shot> getEveryoneList(Context context, int count, int page) {
         ArrayList<Shot> popularList = new ArrayList<Shot>();
         try {
             if (count> 30) {
@@ -49,7 +53,11 @@ public class API {
             if (count < 1) {
                 count = 1;
             }
-            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/everyone?per_page=" + count).asJsonObject().get();
+
+            if (page < 1) {
+                page = 1;
+            }
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/everyone?per_page=" + count + "&page=" + page).asJsonObject().get();
             JsonArray shotArray = object.get("shots").getAsJsonArray();
 
             for (int i = 0; i < shotArray.size(); i++) {
@@ -66,7 +74,7 @@ public class API {
         return null;
     }
 
-    public ArrayList<Shot> getDebutList(Context context, int count) {
+    public ArrayList<Shot> getDebutList(Context context, int count, int page) {
         ArrayList<Shot> popularList = new ArrayList<Shot>();
         try {
             if (count> 30) {
@@ -75,7 +83,11 @@ public class API {
             if (count < 1) {
                 count = 1;
             }
-            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/debuts?per_page=" + count).asJsonObject().get();
+
+            if (page < 1) {
+                page = 1;
+            }
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/debuts?per_page=" + count + "&page=" + page).asJsonObject().get();
             JsonArray shotArray = object.get("shots").getAsJsonArray();
 
             for (int i = 0; i < shotArray.size(); i++) {

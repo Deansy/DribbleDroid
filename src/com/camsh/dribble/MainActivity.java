@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
-    private String activeView;
+    public String activeView;
 
     ShotAdapter shotAdapter;
 
@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         appState = (DribbleDroid)this.getApplication();
 
-        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this, 30));
+        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this, 12, 1));
 
         getActionBar().setTitle("Popular");
         activeView = "Popular";
@@ -122,7 +122,7 @@ public class MainActivity extends Activity {
 
     public ListFragment createPopularListFragment() {
         ListFragment fragment = new ListFragment();
-        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(getApplicationContext(), 30));
+        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(getApplicationContext(), 12, 1));
         fragment.setShotAdapter(shotAdapter);
 
         getActionBar().setTitle("Popular");
@@ -133,7 +133,7 @@ public class MainActivity extends Activity {
 
     public ListFragment createEveryoneListFragment() {
         ListFragment fragment = new ListFragment();
-        shotAdapter = new ShotAdapter(this, appState.getApi().getEveryoneList(getApplicationContext(), 30));
+        shotAdapter = new ShotAdapter(this, appState.getApi().getEveryoneList(getApplicationContext(), 12, 1));
         fragment.setShotAdapter(shotAdapter);
 
         getActionBar().setTitle("Everyone");
@@ -144,7 +144,7 @@ public class MainActivity extends Activity {
 
     public ListFragment createDebutListFragment() {
         ListFragment fragment = new ListFragment();
-        shotAdapter = new ShotAdapter(this, appState.getApi().getDebutList(getApplicationContext(), 30));
+        shotAdapter = new ShotAdapter(this, appState.getApi().getDebutList(getApplicationContext(), 12, 1));
         fragment.setShotAdapter(shotAdapter);
 
         getActionBar().setTitle("Debut");
@@ -201,16 +201,17 @@ public class MainActivity extends Activity {
             ArrayList<Shot> list;
 
             if (activeView.equals("Popular")) {
-                list = appState.getApi().getPopularList(this, 30);
+                list = appState.getApi().getPopularList(this, 12, 1);
             }
             else if (activeView.equals("Everyone")) {
-                list = appState.getApi().getEveryoneList(this, 30);
+                list = appState.getApi().getEveryoneList(this, 12, 1);
             }
             else if (activeView.equals("Debut")) {
-                list = appState.getApi().getDebutList(this, 30);
+                list = appState.getApi().getDebutList(this, 12, 1);
             }
             else {
-                list = appState.getApi().getPopularList(this, 30);
+                // Fallback list
+                list = appState.getApi().getPopularList(this, 12, 1);
             }
 
             frag.getShotAdapter().clear();
