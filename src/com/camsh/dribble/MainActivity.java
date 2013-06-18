@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
 import android.view.*;
 import android.widget.*;
 
@@ -25,6 +24,8 @@ public class MainActivity extends Activity {
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
 
+    private String activeView;
+
     ShotAdapter shotAdapter;
 
     @Override
@@ -33,7 +34,11 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         appState = (DribbleDroid)this.getApplication();
+
         shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this, 30));
+
+        getActionBar().setTitle("Popular");
+        activeView = "Popular";
 
         FragmentManager fragmentManager = getFragmentManager();
         ListFragment fragment = new ListFragment();
@@ -53,12 +58,12 @@ public class MainActivity extends Activity {
         ) {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
-
+                getActionBar().setTitle(activeView);
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
-
+                getActionBar().setTitle("DribbleDroid");
             }
         };
 
@@ -68,8 +73,8 @@ public class MainActivity extends Activity {
         getActionBar().setHomeButtonEnabled(true);
 
 
-        String[] temp = {"Popular List", "...", "Settings"};
-        mPlanetTitles = temp;
+        String[] listStrings = {"Popular", "Everyone", "Debut", "Settings"};
+        mPlanetTitles = listStrings;
 
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
@@ -87,10 +92,19 @@ public class MainActivity extends Activity {
                 Fragment newFrag = null;
                 switch (i) {
                     case 0:
-                        newFrag = new ListFragment();
-                        ((ListFragment)newFrag).setShotAdapter(shotAdapter);
+                        // Popular List
+                        newFrag = createPopularListFragment();
                         break;
                     case 1:
+                        // Everyone List
+                        newFrag = createEveryoneListFragment();
+                        break;
+                    case 2:
+                        //Debut List
+                        newFrag = createDebutListFragment();
+                        break;
+                    case 3:
+                        // Settings
                         break;
                 }
                 if (newFrag != null) {
@@ -101,11 +115,42 @@ public class MainActivity extends Activity {
                 }
 
                 mDrawerList.clearChoices();
-
-
                 mDrawerLayout.closeDrawers();
             }
         });
+    }
+
+    public ListFragment createPopularListFragment() {
+        ListFragment fragment = new ListFragment();
+        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(getApplicationContext(), 30));
+        fragment.setShotAdapter(shotAdapter);
+
+        getActionBar().setTitle("Popular");
+        activeView = "Popular";
+
+        return fragment;
+    }
+
+    public ListFragment createEveryoneListFragment() {
+        ListFragment fragment = new ListFragment();
+        shotAdapter = new ShotAdapter(this, appState.getApi().getEveryoneList(getApplicationContext(), 30));
+        fragment.setShotAdapter(shotAdapter);
+
+        getActionBar().setTitle("Everyone");
+        activeView = "Everyone";
+
+        return fragment;
+    }
+
+    public ListFragment createDebutListFragment() {
+        ListFragment fragment = new ListFragment();
+        shotAdapter = new ShotAdapter(this, appState.getApi().getDebutList(getApplicationContext(), 30));
+        fragment.setShotAdapter(shotAdapter);
+
+        getActionBar().setTitle("Debut");
+        activeView = "Debut";
+
+        return fragment;
     }
 
     public void transitionToDetailFrag(int position) {
@@ -153,8 +198,21 @@ public class MainActivity extends Activity {
 
         if (item.getTitle().equals("Refresh")) {
             ListFragment frag = (ListFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
+            ArrayList<Shot> list;
 
-            ArrayList<Shot> list = appState.getApi().getPopularList(this, 30);
+            if (activeView.equals("Popular")) {
+                list = appState.getApi().getPopularList(this, 30);
+            }
+            else if (activeView.equals("Everyone")) {
+                list = appState.getApi().getEveryoneList(this, 30);
+            }
+            else if (activeView.equals("Debut")) {
+                list = appState.getApi().getDebutList(this, 30);
+            }
+            else {
+                list = appState.getApi().getPopularList(this, 30);
+            }
+
             frag.getShotAdapter().clear();
             frag.getShotAdapter().addAll(list);
 

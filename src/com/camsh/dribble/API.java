@@ -1,6 +1,5 @@
 package com.camsh.dribble;
 
-import java.io.*;
 import java.util.ArrayList;
 
 import com.camsh.dribble.Model.Player;
@@ -8,15 +7,9 @@ import com.camsh.dribble.Model.Shot;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import com.koushikdutta.ion.Ion;
 
-import org.apache.http.*;
-import org.apache.http.client.*;
-import org.apache.http.client.methods.*;
-import org.apache.http.impl.client.DefaultHttpClient;
 import android.content.Context;
-import android.os.AsyncTask;
 
 
 public class API {
@@ -37,6 +30,58 @@ public class API {
                JsonElement tempObj = shotArray.get(i);
                JsonObject obj = tempObj.getAsJsonObject();
                popularList.add(new Shot(obj));
+            }
+
+            return popularList;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Shot> getEveryoneList(Context context, int count) {
+        ArrayList<Shot> popularList = new ArrayList<Shot>();
+        try {
+            if (count> 30) {
+                count = 30;
+            }
+            if (count < 1) {
+                count = 1;
+            }
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/everyone?per_page=" + count).asJsonObject().get();
+            JsonArray shotArray = object.get("shots").getAsJsonArray();
+
+            for (int i = 0; i < shotArray.size(); i++) {
+                JsonElement tempObj = shotArray.get(i);
+                JsonObject obj = tempObj.getAsJsonObject();
+                popularList.add(new Shot(obj));
+            }
+
+            return popularList;
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public ArrayList<Shot> getDebutList(Context context, int count) {
+        ArrayList<Shot> popularList = new ArrayList<Shot>();
+        try {
+            if (count> 30) {
+                count = 30;
+            }
+            if (count < 1) {
+                count = 1;
+            }
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/debuts?per_page=" + count).asJsonObject().get();
+            JsonArray shotArray = object.get("shots").getAsJsonArray();
+
+            for (int i = 0; i < shotArray.size(); i++) {
+                JsonElement tempObj = shotArray.get(i);
+                JsonObject obj = tempObj.getAsJsonObject();
+                popularList.add(new Shot(obj));
             }
 
             return popularList;
