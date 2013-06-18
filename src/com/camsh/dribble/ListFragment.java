@@ -19,15 +19,34 @@ public class ListFragment extends Fragment {
     }
 
     private DribbleDroid appState;
+    private ListView listView;
+    private ShotAdapter shotAdapter;
+
+    public void setShotAdapter(ShotAdapter shotAdapter) {
+        this.shotAdapter = shotAdapter;
+    }
+
+    public ShotAdapter getShotAdapter() {
+        return shotAdapter;
+    }
+
+    public ListView getListView() {
+        return listView;
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         appState = (DribbleDroid)getActivity().getApplication();
-        ShotAdapter mShotAdapter = ((MainActivity)getActivity()).shotAdapter;
+
+        if (shotAdapter == null) {
+            shotAdapter = ((MainActivity)getActivity()).shotAdapter;
+        }
         View view = inflater.inflate(R.layout.list_fragment, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.listview);
-        listView.setAdapter(mShotAdapter);
+        listView = (ListView) view.findViewById(R.id.listview);
+        listView.setAdapter(shotAdapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {

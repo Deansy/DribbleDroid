@@ -29,6 +29,17 @@ public class ShotAdapter extends BaseAdapter {
         }
     }
 
+    public void add(Shot shot) {
+        mShots.add(shot);
+    }
+
+    public void addAll(ArrayList<Shot> list) {
+        mShots.addAll(list);
+    }
+
+    public void clear() {
+        mShots.clear();    }
+
     public ArrayList<Shot> getShots() {
         return mShots;
     }
@@ -65,9 +76,17 @@ public class ShotAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView)view.findViewById(R.id.imageView1);
 
-        Ion.with(imageView)
-                .placeholder(R.drawable.url2)
-                .load(mShots.get(position).getImageUrl());
+        if (mShots.get(position).getImageTeaserUrl() != null) {
+            Ion.with(imageView)
+                    .placeholder(R.drawable.url2)
+                    .load(mShots.get(position).getImageTeaserUrl());
+
+        }
+        else {
+            Ion.with(imageView)
+                    .placeholder(R.drawable.url2)
+                    .load(mShots.get(position).getImageUrl());
+        }
 
         ((TextView) view.findViewById(R.id.title)).setText(mShots.get(position).getTitle());
 

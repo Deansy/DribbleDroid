@@ -21,10 +21,16 @@ import android.os.AsyncTask;
 
 public class API {
 
-    public ArrayList<Shot> getPopularList(Context context) {
+    public ArrayList<Shot> getPopularList(Context context, int count) {
         ArrayList<Shot> popularList = new ArrayList<Shot>();
         try {
-            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/popular?per_page=30").asJsonObject().get();
+            if (count> 30) {
+                count = 30;
+            }
+            if (count < 1) {
+                count = 1;
+            }
+            JsonObject object = Ion.with(context, "http://api.dribbble.com/shots/popular?per_page=" + count).asJsonObject().get();
             JsonArray shotArray = object.get("shots").getAsJsonArray();
 
            for (int i = 0; i < shotArray.size(); i++) {

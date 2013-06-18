@@ -8,8 +8,13 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.*;
 import android.widget.*;
+
+import com.camsh.dribble.Model.Shot;
+
+import java.util.ArrayList;
 
 public class MainActivity extends Activity {
     DribbleDroid appState;
@@ -28,13 +33,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         appState = (DribbleDroid)this.getApplication();
-        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this));
+        shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(this, 30));
 
         FragmentManager fragmentManager = getFragmentManager();
         ListFragment fragment = new ListFragment();
+        fragment.setShotAdapter(shotAdapter);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container,fragment);
         fragmentTransaction.commit();
+
 
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle(
@@ -81,6 +88,7 @@ public class MainActivity extends Activity {
                 switch (i) {
                     case 0:
                         newFrag = new ListFragment();
+                        ((ListFragment)newFrag).setShotAdapter(shotAdapter);
                         break;
                     case 1:
                         break;
@@ -143,10 +151,14 @@ public class MainActivity extends Activity {
         }
         // Handle your other action bar items...
 
-        if (item.getTitle() == "Refresh") {
-            //TODO: Perform Refresh
-            // Create new fragment and transaction
+        if (item.getTitle().equals("Refresh")) {
+            ListFragment frag = (ListFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
 
+            ArrayList<Shot> list = appState.getApi().getPopularList(this, 30);
+            frag.getShotAdapter().clear();
+            frag.getShotAdapter().addAll(list);
+
+            frag.getShotAdapter().notifyDataSetChanged();
         }
 
         return super.onOptionsItemSelected(item);
