@@ -16,6 +16,13 @@ public class Comment {
 
     }
 
+    public Comment(int likes_count, Player author, String body, int id) {
+        this.likes_count = likes_count;
+        this.author = author;
+        this.body = body;
+        this.id = id;
+    }
+
     public Comment(JsonObject object) {
         try {
             likes_count = object.get("likes_count").getAsInt();

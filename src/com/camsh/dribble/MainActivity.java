@@ -154,7 +154,7 @@ public class MainActivity extends Activity {
     }
 
     public void transitionToDetailFrag(int position) {
-        Fragment newFragment = new ShotDetailFragment(shotAdapter.getItem(position));
+        Fragment newFragment = new ShotDetailFragment(shotAdapter.getItem(position).getId());
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
         transaction.replace(R.id.fragment_container, newFragment);

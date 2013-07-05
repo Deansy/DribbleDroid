@@ -69,7 +69,11 @@ public class Shot {
             image_url = object.get("image_url").getAsString();
             short_url = object.get("short_url").getAsString();
             views_count = object.get("views_count").getAsInt();
+
+            //Gives the total number of comments
             comments_count = object.get("comments_count").getAsInt();
+
+
             likes_count = object.get("likes_count").getAsInt();
             id = object.get("id").getAsInt();
             width = object.get("width").getAsInt();
@@ -88,33 +92,9 @@ public class Shot {
         }
     }
 
-    public int getRebounds_count() {
-        return rebounds_count;
-    }
-    public int getViews_count() {
-        return views_count;
-    }
-
-    public int getComments_count() {
-        return comments_count;
-    }
-
-    public int getLikes_count() {
-        return likes_count;
-    }
 
     public Player getPlayer() {
         return player;
-    }
-
-    public String getRebound_source_url() {
-        return rebound_source_url;
-    }
-
-
-
-    public String getShort_url() {
-        return short_url;
     }
 
     public ArrayList<Comment> getComments() {
@@ -123,7 +103,12 @@ public class Shot {
     }
 
     public Comment getComment(int comment) {
-        return comments.get(comment);
+        try {
+            return comments.get(comment);
+        }
+        catch (Exception e) {
+            return new Comment(0, null, "NULL", 666);
+        }
     }
 
 

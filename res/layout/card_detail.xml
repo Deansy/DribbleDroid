@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        >
+    <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/cardLayout"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                     android:id="@+id/cardContent"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginTop="20dp"
+                     android:background="@drawable/card"
+                     android:paddingTop="8dp">
+
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:orientation="vertical"
+                          android:paddingBottom="16dp"
+                    >
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:paddingLeft="12dp"
+                        android:paddingRight="12dp" >
+
+                    <TextView
+                            android:id="@+id/title"
+                            style="@style/CardTitle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="title" />
+
+                </LinearLayout>
+
+                <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="4dp"
+                        android:background="@color/stroke" />
+
+                <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selectable_background_cardbank"
+                        android:gravity="center_vertical"
+                        android:padding="12dp" >
+
+                    <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="match_parent"
+                            android:layout_height="255dp"
+                            android:adjustViewBounds="true"
+                            android:baselineAlignBottom="true"
+                            android:scaleType="centerCrop"
+
+
+                            android:src="@drawable/url1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </FrameLayout>
+
+    </LinearLayout>
+</ScrollView>

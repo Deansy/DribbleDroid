@@ -76,17 +76,22 @@ public class ShotAdapter extends BaseAdapter {
 
         ImageView imageView = (ImageView)view.findViewById(R.id.imageView1);
 
-        if (mShots.get(position).getImageTeaserUrl() != null) {
-            Ion.with(imageView)
-                    .placeholder(R.drawable.url2)
-                    .load(mShots.get(position).getImageTeaserUrl());
+        Ion.with(imageView)
+                .placeholder(R.drawable.url2)
+                .load(mShots.get(position).getImageUrl());
 
-        }
-        else {
-            Ion.with(imageView)
-                    .placeholder(R.drawable.url2)
-                    .load(mShots.get(position).getImageUrl());
-        }
+//TODO: Move to the settings
+//        if (mShots.get(position).getImageTeaserUrl() != null) {
+//            Ion.with(imageView)
+//                    .placeholder(R.drawable.url2)
+//                    .load(mShots.get(position).getImageTeaserUrl());
+//
+//        }
+//        else {
+//            Ion.with(imageView)
+//                    .placeholder(R.drawable.url2)
+//                    .load(mShots.get(position).getImageUrl());
+//        }
 
         ((TextView) view.findViewById(R.id.title)).setText(mShots.get(position).getTitle());
 

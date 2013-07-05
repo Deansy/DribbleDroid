@@ -20,8 +20,8 @@
 
             <padding
                 android:bottom="8dp"
-                android:left="8dp"
-                android:right="8dp"
+                android:left="0dp"
+                android:right="0dp"
                 android:top="8dp" />
         </shape>
     </item>

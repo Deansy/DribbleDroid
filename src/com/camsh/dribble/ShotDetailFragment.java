@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.camsh.dribble.Model.Shot;
@@ -18,16 +20,30 @@ public class ShotDetailFragment extends Fragment {
 
     DribbleDroid appState;
     Shot shot;
+    int shotID;
 
-    ShotDetailFragment(Shot shot) {
-        this.shot = shot;
+    ShotDetailFragment(int shotID) {
+        this.shotID = shotID;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         appState = (DribbleDroid)this.getActivity().getApplication();
-        View view = inflater.inflate(R.layout.image_card, container, false);
+        this.shot = appState.getApi().getShot(shotID, true, getActivity().getBaseContext());
+        ScrollView view = (ScrollView)inflater.inflate(R.layout.card_detail, container, false);
+
+        LinearLayout card = (LinearLayout)view.findViewById(R.id.cardLayout);
+
+        if (shot.getCommentCount() > 0) {
+
+            for (int i = 0; i < shot.getComments().size(); i++) {
+                View commentView = inflater.inflate(R.layout.list_comment, container, false);
+
+                TextView tv = (TextView)commentView.findViewById(R.id.author);
+                tv.setText(shot.getComment(i).getBody());
+                card.addView(commentView);
+            }
+        }
 
 
         ImageView iv = (ImageView)view.findViewById(R.id.imageView1);
@@ -41,5 +57,6 @@ public class ShotDetailFragment extends Fragment {
 
         return view;
     }
+
 
 }
