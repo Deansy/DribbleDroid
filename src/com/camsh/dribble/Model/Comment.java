@@ -2,8 +2,6 @@ package com.camsh.dribble.Model;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
 
 public class Comment {
     int likes_count;

@@ -2,7 +2,6 @@ package com.camsh.dribble;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +25,11 @@ public class ListFragment extends Fragment {
 
     private DribbleDroid appState;
     private ListView listView;
+
+    public int getCurrentPage() {
+        return currentPage;
+    }
+
     private ShotAdapter shotAdapter;
 
     private int currentPage;
@@ -65,13 +69,8 @@ public class ListFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-//                Intent tempIntent = new Intent(getBaseContext(), ShotDetailActivity.class);
-//                tempIntent.putExtra("shotID", shotAdapter.getShots().get(position).getId());
-//                startActivity(tempIntent);
                 if (v instanceof TextView) {
                     // GOTO NEXT PAGE
-                    Log.d("test" ,"test");
-
                     currentPage++;
                     ArrayList<Shot> list;
                     if ( ((MainActivity) getActivity()).activeView.equals("Popular")){

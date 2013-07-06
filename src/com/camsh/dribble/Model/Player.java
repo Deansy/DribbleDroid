@@ -2,10 +2,6 @@ package com.camsh.dribble.Model;
 
 import com.google.gson.JsonObject;
 
-import org.json.JSONObject;
-
-import java.util.Date;
-
 public class Player {
     String name;
     String website_url;

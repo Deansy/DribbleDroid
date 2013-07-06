@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.camsh.dribble.Model.Shot;
 import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
 
 public class ShotAdapter extends BaseAdapter {

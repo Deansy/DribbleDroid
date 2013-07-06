@@ -1,6 +1,7 @@
 package com.camsh.dribble;
 
 import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,8 +40,20 @@ public class ShotDetailFragment extends Fragment {
             for (int i = 0; i < shot.getComments().size(); i++) {
                 View commentView = inflater.inflate(R.layout.list_comment, container, false);
 
-                TextView tv = (TextView)commentView.findViewById(R.id.author);
+                // If EVEN
+                if (i % 2 == 0)
+                {
+                    commentView.setBackgroundColor(Color.argb(255, 81, 82, 84));
+                }
+                else {
+                    commentView.setBackgroundColor(Color.argb(255, 74, 75, 77));
+                }
+
+                TextView tv = (TextView)commentView.findViewById(R.id.bodyText);
                 tv.setText(shot.getComment(i).getBody());
+                tv = (TextView)commentView.findViewById(R.id.authorText);
+                tv.setText(shot.getComment(i).getAuthor().getName());
+
                 card.addView(commentView);
             }
         }
