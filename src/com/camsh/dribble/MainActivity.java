@@ -46,7 +46,7 @@ public class MainActivity extends Activity {
         activeView = "Popular";
 
         FragmentManager fragmentManager = getFragmentManager();
-        ListFragment fragment = new ListFragment();
+        ShotListFragment fragment = new ShotListFragment();
         fragment.setShotAdapter(shotAdapter);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.fragment_container,fragment);
@@ -125,8 +125,8 @@ public class MainActivity extends Activity {
         });
     }
 
-    public ListFragment createPopularListFragment() {
-        ListFragment fragment = new ListFragment();
+    public ShotListFragment createPopularListFragment() {
+        ShotListFragment fragment = new ShotListFragment();
         shotAdapter = new ShotAdapter(this, appState.getApi().getPopularList(getApplicationContext(), 12, 1));
         fragment.setShotAdapter(shotAdapter);
 
@@ -136,8 +136,8 @@ public class MainActivity extends Activity {
         return fragment;
     }
 
-    public ListFragment createEveryoneListFragment() {
-        ListFragment fragment = new ListFragment();
+    public ShotListFragment createEveryoneListFragment() {
+        ShotListFragment fragment = new ShotListFragment();
         shotAdapter = new ShotAdapter(this, appState.getApi().getEveryoneList(getApplicationContext(), 12, 1));
         fragment.setShotAdapter(shotAdapter);
 
@@ -147,8 +147,8 @@ public class MainActivity extends Activity {
         return fragment;
     }
 
-    public ListFragment createDebutListFragment() {
-        ListFragment fragment = new ListFragment();
+    public ShotListFragment createDebutListFragment() {
+        ShotListFragment fragment = new ShotListFragment();
         shotAdapter = new ShotAdapter(this, appState.getApi().getDebutList(getApplicationContext(), 12, 1));
         fragment.setShotAdapter(shotAdapter);
 
@@ -202,7 +202,7 @@ public class MainActivity extends Activity {
         // Handle your other action bar items...
 
         if (item.getTitle().equals("Refresh")) {
-            ListFragment frag = (ListFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
+            ShotListFragment frag = (ShotListFragment)getFragmentManager().findFragmentById(R.id.fragment_container);
             ArrayList<Shot> list;
 
             if (activeView.equals("Popular")) {

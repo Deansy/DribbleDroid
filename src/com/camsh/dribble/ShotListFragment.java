@@ -17,9 +17,9 @@ import java.util.ArrayList;
 /**
  * Created by Cameron on 14/06/13.
  */
-public class ListFragment extends Fragment {
+public class ShotListFragment extends Fragment {
 
-    public ListFragment() {
+    public ShotListFragment() {
         currentPage = 1;
     }
 

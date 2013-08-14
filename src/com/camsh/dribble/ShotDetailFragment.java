@@ -35,30 +35,6 @@ public class ShotDetailFragment extends Fragment {
 
         LinearLayout card = (LinearLayout)view.findViewById(R.id.cardLayout);
 
-        if (shot.getCommentCount() > 0) {
-
-            for (int i = 0; i < shot.getComments().size(); i++) {
-                View commentView = inflater.inflate(R.layout.list_comment, container, false);
-
-                // If EVEN
-                if (i % 2 == 0)
-                {
-                    commentView.setBackgroundColor(Color.argb(255, 81, 82, 84));
-                }
-                else {
-                    commentView.setBackgroundColor(Color.argb(255, 74, 75, 77));
-                }
-
-                TextView tv = (TextView)commentView.findViewById(R.id.bodyText);
-                tv.setText(shot.getComment(i).getBody());
-                tv = (TextView)commentView.findViewById(R.id.authorText);
-                tv.setText(shot.getComment(i).getAuthor().getName());
-
-                card.addView(commentView);
-            }
-        }
-
-
         ImageView iv = (ImageView)view.findViewById(R.id.imageView1);
 
         Ion.with(iv)
