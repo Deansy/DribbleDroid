@@ -55,7 +55,7 @@ public class ShotListFragment extends Fragment {
         if (shotAdapter == null) {
             shotAdapter = ((MainActivity)getActivity()).shotAdapter;
         }
-        View view = inflater.inflate(R.layout.list_fragment, container, false);
+        View view = inflater.inflate(R.layout.fragment_shot_list, container, false);
         listView = (ListView) view.findViewById(R.id.listview);
 
         //TODO: Stylise

@@ -1,7 +1,6 @@
 package com.camsh.dribble;
 
 import android.app.Fragment;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,7 @@ public class ShotDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         appState = (DribbleDroid)this.getActivity().getApplication();
         this.shot = appState.getApi().getShot(shotID, true, getActivity().getBaseContext());
-        ScrollView view = (ScrollView)inflater.inflate(R.layout.card_detail, container, false);
+        ScrollView view = (ScrollView)inflater.inflate(R.layout.fragment_card_detail, container, false);
 
         LinearLayout card = (LinearLayout)view.findViewById(R.id.cardLayout);
 
