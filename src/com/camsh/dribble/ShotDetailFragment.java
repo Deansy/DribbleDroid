@@ -43,19 +43,17 @@ public class ShotDetailFragment extends Fragment {
         ((TextView) view.findViewById(R.id.title)).setText(shot.getTitle());
 
 
+
         if(shot.hasComments()) {
             FragmentManager fragmentManager = getFragmentManager();
             ShotCommentFragment fragment = new ShotCommentFragment(shotID);
+
 
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.add(R.id.comment_fragment_container,fragment);
             fragmentTransaction.commit();
 
         }
-
-
-
-
 
         return view;
     }

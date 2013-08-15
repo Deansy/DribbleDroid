@@ -1,15 +1,12 @@
 package com.camsh.dribble;
 
-import android.app.Fragment;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 
-import com.camsh.dribble.Model.Comment;
 import com.camsh.dribble.Model.Shot;
 
 /**
@@ -36,15 +33,19 @@ public class ShotCommentFragment extends ListFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         appState = (DribbleDroid)this.getActivity().getApplication();
 
+
         if (shot == null) {
             this.shot = appState.getApi().getShot(shotID, true, getActivity().getBaseContext());
         }
 
+        LinearLayout view = (LinearLayout)inflater.inflate(R.layout.fragment_comment_list, container, false);
 
 
         adapter = new CommentAdapter(this.getActivity(), shot.getComments());
         setListAdapter(adapter);
 
-        return super.onCreateView(inflater, container, savedInstanceState);
+
+        //return super.onCreateView(inflater, container, savedInstanceState);
+        return view;
     }
 }

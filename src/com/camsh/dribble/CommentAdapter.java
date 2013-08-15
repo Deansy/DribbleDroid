@@ -71,14 +71,6 @@ public class CommentAdapter extends BaseAdapter {
             view = inflater.inflate(R.layout.list_comment, parent, false);
         }
 
-//        ImageView imageView = (ImageView)view.findViewById(R.id.imageView1);
-//
-//        Ion.with(imageView)
-//                .placeholder(R.drawable.url2)
-//                .load(mComments.get(position).getImageUrl());
-//
-//        ((TextView) view.findViewById(R.id.title)).setText(mComments.get(position).getTitle());
-
 
         if (position % 2 == 0)
         {
