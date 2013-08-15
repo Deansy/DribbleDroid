@@ -34,10 +34,12 @@ public class ShotCommentFragment extends ListFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
         appState = (DribbleDroid)this.getActivity().getApplication();
 
-        this.shot = appState.getApi().getShot(shotID, true, getActivity().getBaseContext());
+        if (shot == null) {
+            this.shot = appState.getApi().getShot(shotID, true, getActivity().getBaseContext());
+        }
+
 
 
         adapter = new CommentAdapter(this.getActivity(), shot.getComments());

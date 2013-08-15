@@ -1,6 +1,8 @@
 package com.camsh.dribble;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,9 +32,7 @@ public class ShotDetailFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         appState = (DribbleDroid)this.getActivity().getApplication();
         this.shot = appState.getApi().getShot(shotID, true, getActivity().getBaseContext());
-        ScrollView view = (ScrollView)inflater.inflate(R.layout.fragment_card_detail, container, false);
-
-        LinearLayout card = (LinearLayout)view.findViewById(R.id.cardLayout);
+        LinearLayout view = (LinearLayout)inflater.inflate(R.layout.fragment_card_detail, container, false);
 
         ImageView iv = (ImageView)view.findViewById(R.id.imageView1);
 
@@ -41,6 +41,20 @@ public class ShotDetailFragment extends Fragment {
                 .load(shot.getImageUrl());
 
         ((TextView) view.findViewById(R.id.title)).setText(shot.getTitle());
+
+
+        if(shot.hasComments()) {
+            FragmentManager fragmentManager = getFragmentManager();
+            ShotCommentFragment fragment = new ShotCommentFragment(shotID);
+
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.add(R.id.comment_fragment_container,fragment);
+            fragmentTransaction.commit();
+
+        }
+
+
+
 
 
         return view;

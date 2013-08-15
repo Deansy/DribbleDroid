@@ -21,6 +21,7 @@ public class Shot {
     String image_url;
     String short_url;
     int rebounds_count;
+    boolean hasComments = false;
 
     ArrayList<Comment> comments;
 
@@ -55,6 +56,7 @@ public class Shot {
     public Shot(JsonObject object, JsonArray commentArray) {
         try {
 
+            hasComments = true;
             comments = new ArrayList<Comment>();
 
             for (int i = 0; i < commentArray.size(); i++) {
@@ -91,6 +93,10 @@ public class Shot {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public boolean hasComments() {
+        return hasComments;
     }
 
     public ArrayList<Comment> getComments() {

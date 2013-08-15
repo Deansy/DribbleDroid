@@ -33,10 +33,10 @@ public class Comment {
         }
 
     }
-
     public int getLikeCount() {
         return likes_count;
     }
+
 
     public Player getAuthor() {
         return author;
